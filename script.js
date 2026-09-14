@@ -3,6 +3,7 @@ var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 initTypewriter(reduceMotion);
 initIntroSlideshow();
 initDayNav();
+initDaysNavScroll();
 initScrollReveal(reduceMotion);
 initSlider();
 initParallax(reduceMotion);
@@ -149,6 +150,17 @@ lastId = currentId;
 }
 window.addEventListener('scroll', setActive, { passive: true });
 setActive();
+}
+function initDaysNavScroll() {
+var nav = document.querySelector('.days-nav');
+if (!nav) return;
+function onScroll() {
+requestAnimationFrame(function () {
+nav.classList.toggle('days-nav--solid', window.scrollY > 10);
+});
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
 }
 function initScrollReveal(reduceMotion) {
 var revealEls = document.querySelectorAll('.day, .outro__quote, [data-reveal]');
